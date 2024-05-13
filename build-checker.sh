@@ -1,3 +1,4 @@
+#!/bin/bash
 original=$(pwd)
 prerun=1
 
@@ -53,11 +54,12 @@ env CGO_ENABLED=0 >/dev/null
 env GOOS=linux >/dev/null
 env GOARCH=amd64 >/dev/null
 
+go get -u
 go build -tags netgo -a -v . 
 docker build . --load -t ghcr.io/elfshot/build-mirror-checker -t ghcr.io/elfshot/build-mirror-checker:$latest_gid
 
 # GHCR_USER must be set in the environment
-# docker login ghcr.io -u $GHCR_USER
+### docker login ghcr.io -u $GHCR_USER # We assume the runner is already logged in
 docker push ghcr.io/elfshot/build-mirror-checker:latest
 
 prerun=1
