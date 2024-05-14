@@ -1,0 +1,9 @@
+services:
+  mirror-checker:
+    container_name: mirror-checker
+    image: ghcr.io/elfshot/build-mirror-checker:latest
+    environment:
+      - RECIPIENT=human@example.com
+      - SENDER=bot@example.com
+      - SENDER_ALIAS=bot-name
+    restart: unless-stopped

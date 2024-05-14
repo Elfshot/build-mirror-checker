@@ -5,7 +5,7 @@ WORKDIR /app
 RUN mkdir -p ./data
 
 RUN touch crontab.tmp \
-  && echo '0 10 * * * /app/one-shot.sh' > crontab.tmp \
+  && echo '0 10 * * * cd /app; ./one-shot.sh' > crontab.tmp \
   && crontab crontab.tmp \
   && rm -rf crontab.tmp
 
@@ -22,4 +22,4 @@ RUN chmod +x ./mirror-checker2 ./one-shot.sh
 
 # -f: foreground (so container doesn't exit)
 # -d: log level. 0 = debug
-CMD /usr/sbin/crond -d 0 && tail -f /var/log/cron.log
+CMD /usr/sbin/crond -d 0 -f

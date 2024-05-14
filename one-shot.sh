@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Running mirror checker"
+
 projects=$(curl "https://git.csclub.uwaterloo.ca/public/mirror-checker/raw/branch/ng/data/mirrors.json" -s |
                  jq -r 'keys | join("\n")' | tr '[:upper:]' '[:lower:]')
 
@@ -60,3 +62,6 @@ if [ $failcount -ge 1 ]; then
   cat $failfile
   exit 1
 fi
+
+echo "Mirror checker has passed for all mirrors"
+exit 0
