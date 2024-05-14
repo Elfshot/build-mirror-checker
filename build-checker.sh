@@ -55,7 +55,7 @@ env GOOS=linux >/dev/null
 env GOARCH=amd64 >/dev/null
 
 go get -u
-go build -tags netgo -a -v . 
+go build -tags netgo -a -v -o mirror-checker2 .
 docker build . --load -t ghcr.io/elfshot/build-mirror-checker -t ghcr.io/elfshot/build-mirror-checker:$latest_gid
 
 # GHCR_USER must be set in the environment
