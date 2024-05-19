@@ -3,7 +3,7 @@ services:
     container_name: mirror-checker
     image: ghcr.io/elfshot/build-mirror-checker:latest
     environment:
-      - RECIPIENT=human@example.com
+      - RECIPIENT=human@example.com,human2@example.com
       - SENDER=bot@example.com
-      - SENDER_ALIAS=bot-name
+      - SENDER_ALIAS=bot-name-nospaces
     restart: unless-stopped

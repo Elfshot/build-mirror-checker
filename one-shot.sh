@@ -32,7 +32,8 @@ for project in $projects; do
      echo "Mirror checker failed for $project"
      failedProjects="$failedProjects $project"
 
-     echo -e "$project failure logs:\n" "$stripped" "\n\n\n\n" >> "$failfile"
+     # echo -e "$project failure logs:\n" "$stripped" "\n\n\n\n" >> "$failfile" #Use for emails
+     echo -e "$project failure logs:\n" "$output" "\n\n\n\n" >> "$failfile"
   fi
 done
 
@@ -52,13 +53,15 @@ if [ $failcount -ge 1 ]; then
     echo "  - $project" >> $emailfile
   done
 
-  echo -e "\nLogs are attached." >> $emailfile
+  echo -e "\nView logs with podman exec mirror-checker cat last-failure.log\nLogs are also available in podman logs" >> $emailfile
   echo -e "\nMirror-Checker@Citric-Acid" >> $emailfile
 
-  uuencode $failfile failurelogs.txt > attachment.txt
-  cat $emailfile attachment.txt | sendmail -i -t -F $SENDER_ALIAS
+  # uuencode $failfile failurelogs.txt > attachment.txt
+  # cat $emailfile attachment.txt | sendmail -i -t -F $SENDER_ALIAS # Include for attachments
+  cat $emailfile | sendmail -i -t -F $SENDER_ALIAS
 
   echo -e "\nMirror checker has failed for $failcount mirrors.\nLogs are as follows...\n\n\n"
+  cat $failfile > last-failure.log
   cat $failfile
   exit 1
 fi
