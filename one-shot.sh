@@ -54,7 +54,7 @@ if [ $failcount -ge 1 ]; then
   done
 
   echo -e "\nView logs with podman exec mirror-checker cat last-failure.log\nLogs are also available in podman logs" >> $emailfile
-  echo -e "\nMirror-Checker@Citric-Acid" >> $emailfile
+  echo -e "\n$SENDER_ALIAS" >> $emailfile
 
   # uuencode $failfile failurelogs.txt > attachment.txt
   # cat $emailfile attachment.txt | sendmail -i -t -F $SENDER_ALIAS # Include for attachments

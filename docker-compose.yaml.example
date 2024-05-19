@@ -7,3 +7,6 @@ services:
       - SENDER=bot@example.com
       - SENDER_ALIAS=bot-name-nospaces
     restart: unless-stopped
+    volumes:
+      # Link for .log so it persists
+      - ./last-failure.log:/app/last-failure.log
